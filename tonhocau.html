@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to nho cau</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffd1dc; /* Màu hồng pastel */
+        }
+        .music-player {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #play-pause-btn {
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            padding: 10px 20px;
+            font-size: 30px;
+            cursor: pointer;
+            border: none;
+            background: none; /* Đặt nền là trong suốt */
+            outline: none;
+        }
+        #image-container {
+            position: absolute;
+            top: 26%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: none;
+        }
+
+        #image {
+            width: 300px; /* Điều chỉnh kích thước của hình ảnh */
+            height: auto; /* Đảm bảo tỷ lệ khung hình */
+        }
+                #question {
+            font-size: 26px;
+            color: #333; /* Màu chữ */
+            display: none;
+        }
+        #change-image-btn {
+            position: absolute;
+            display: none; /* Mặc định hiển thị nút */
+            background-color: transparent; /* Nền trong suốt */
+            border: 2px solid #fff; /* Viền màu trắng */
+            border-radius: 5px; /* Bo viền */
+            padding: 10px 20px; /* Khoảng cách lề bên trong */
+            color: #fff; /* Màu chữ trắng */
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi mềm mại */
+            font-size: 50px;
+            top: 65%;
+            left: 20%;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        #change-image-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Màu nền trong suốt khi di chuột qua */
+        }
+        #start-btn {
+            position: absolute;
+            background-color: transparent;
+            border: 3px solid #ff69b4; /* Màu viền */
+            border-radius: 10px;
+            color: #ff69b4; /* Màu chữ */
+            padding: 10px 20px;
+            font-size: 30px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi mềm mại */
+            top: 50%;
+            left: 45%;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        #start-btn:hover {
+            background-color: #ff69b4; /* Màu nền khi di chuột qua */
+            color: #fff; /* Màu chữ khi di chuột qua */
+        }
+        #ok-btn {
+            position: absolute;
+            background-color: #FF91A4; /* Màu hồng cam */
+            border: 3px solid #ff69b4; /* Màu viền */
+            border-radius: 10px;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s; /* Hiệu ứng chuyển đổi mềm mại */
+            top: 65%;
+            right: 20%;
+            display: none;
+            font-size: 50px;
+            font-family: 'Comfortaa', cursive;    
+        }
+
+        #ok-btn:hover {
+            background-color: #FFA07A; /* Màu hồng cam sáng hơn khi hover */
+        }
+        .heart-icon {
+            color: #ff69b4; /* Màu hồng cánh sen */
+            font-size: 26px; /* Kích thước trái tim */
+            position: absolute; /* Hiển thị tuyệt đối */
+            opacity: 0; /* Ẩn trái tim ban đầu */
+            animation: heartbeat 1s infinite; /* Thêm hiệu ứng nhấp nháy */
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(0.8); /* Thu nhỏ trái tim */
+                opacity: 0.2; /* Độ mờ */
+            }
+            50% {
+                transform: scale(1.2); /* Phóng to trái tim */
+                opacity: 1; /* Hiển thị hoàn toàn */
+            }
+            100% {
+                transform: scale(0.8); /* Trở lại kích thước ban đầu */
+                opacity: 0.2; /* Độ mờ */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="heart"></div>
+
+    <div>
+        <button id="start-btn">Cậu ơiii</button> <!-- Thêm nút Start -->
+    </div>
+    <div>
+        <button id="ok-btn">tớ nhớ cậuu</button> <!-- Thêm nút OK và ẩn -->
+    </div>
+    <div>
+        <button id="change-image-btn">honggg nhớ</button>
+    </div>
+    <div id="image-container">
+        <img id="image" src="./dau.jpg" alt="Placeholder Image">
+        <p id="question">Cậu có nhớ tớ honggg?</p>
+    </div>
+    <div class="music-player">
+        <audio id="audio" src="./music.mp4" ></audio>
+        <button id="play-pause-btn"><ion-icon name="play"></ion-icon>
+        </button>
+    </div>
+    <div id="heart"></div>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+        const audio = document.getElementById("audio");
+        const playPauseButton = document.getElementById("play-pause-btn");
+        const icon = playPauseButton.querySelector("ion-icon");
+        const changeImageButton = document.getElementById("change-image-btn");
+        const image = document.getElementById("image");
+        const question = document.getElementById("question");
+        const startButton = document.getElementById("start-btn");
+        const okButton = document.getElementById("ok-btn");
+        const imageContainer = document.getElementById("image-container");
+
+
+
+            okButton.addEventListener("click", function() {
+                    // Xử lý khi nhấn nút OK
+                    okButton.style.display = "none"; // Ẩn nút OK
+                    changeImageButton.style.display = "none";
+            });
+            okButton.addEventListener("click", function() {
+                // Xử lý khi nhấn nút OK
+                // Hiển thị ảnh và câu hỏi mới
+                const newImage = "./cuoi.jpg"; // Đường dẫn đến ảnh mới
+                const newQuestion = "Tớ cũm nhớ cậu nhiều lắm <3"; // Câu hỏi mới
+                image.src = newImage;
+                question.textContent = newQuestion;
+                okButton.style.display = "none"; // Ẩn nút OK
+                // Ẩn nút khi đến hình cuối cùng
+                if (currentIndex === images.length - 1) {
+                    changeImageButton.style.display = "none";
+                }
+                const heartContainer = document.getElementById("heart");
+                const numHearts = 26; // Số lượng trái tim bạn muốn hiển thị
+
+                for (let i = 0; i < numHearts; i++) {
+                    const heart = document.createElement("span");
+                    heart.classList.add("heart-icon");
+                    heart.innerHTML = "&hearts;";
+                    heart.style.position = "absolute";
+                    heart.style.left = Math.random() * window.innerWidth + "px";
+                    heart.style.top = Math.random() * window.innerHeight + "px";
+                    heartContainer.appendChild(heart);
+                }
+                        });
+
+            startButton.addEventListener("click", function() {
+                startButton.style.display = "none"; // Ẩn nút Start
+                imageContainer.style.display = "block"; // Hiển thị hình ảnh
+                question.style.display = "block"; // Hiển thị câu hỏi
+                changeImageButton.style.display = "block"; // Hiển thị nút thay đổi hình ảnh
+                okButton.style.display = "block";
+                audio.play();
+                icon.setAttribute("name", "pause");
+            });
+        const images = [
+                { src: "./dau.jpg", question: "Cậu có nhớ tớ honggg" },
+                { src: "./hong.jpg", question: "Cậu hong nhớ tớ haaa" },
+                { src: "./hong1.jpg", question: "Cậu nhớ tớ đii, pls" },
+                { src: "./hong3.jpg", question: "Tớ nhớ cậu lắm áa" },
+                { src: "./honggg.jpg", question: "Cậu dối lòng thoii đúng hong ((=" },
+                { src: "./hongg.jpg", question: "Tớ nhớ cậu nhiều lắm, lúc nào cũng nghĩ tới cậu thoi" },
+            ];
+            let currentIndex = 0;
+
+            changeImageButton.addEventListener("click", function() {
+                currentIndex = (currentIndex + 1) % images.length; // Di chuyển đến hình ảnh tiếp theo
+                const currentImage = images[currentIndex];
+                image.src = currentImage.src;
+                question.textContent = currentImage.question;
+                // Ẩn nút khi đến hình cuối cùng
+                if (currentIndex === images.length - 1) {
+                    changeImageButton.style.display = "none";
+                } else {
+                    changeImageButton.style.display = "block";
+                }
+                let currentFontSize = window.getComputedStyle(changeImageButton).getPropertyValue('font-size');
+                changeImageButton.style.fontSize = (parseInt(currentFontSize) - 8) + "px";
+                let currentFontSizee = window.getComputedStyle(okButton).getPropertyValue('font-size');
+                okButton.style.fontSize = (parseInt(currentFontSizee) + 8) + "px";
+            });
+       
+
+        playPauseButton.addEventListener("click", function() {
+            if (audio.paused) {
+                audio.play();
+                icon.setAttribute("name", "pause"); // Đổi icon thành nút pause
+            } else {
+                audio.pause();
+                icon.setAttribute("name", "play"); // Đổi icon thành nút play
+            }
+        });
+
+        audio.addEventListener("ended", function() {
+            icon.setAttribute("name", "play"); // Đổi icon thành nút play khi kết thúc
+            audio.currentTime = 0;
+        });
+    });
+
+
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
