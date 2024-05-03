@@ -71,13 +71,16 @@
             border-radius: 10px;
             color: #ff69b4; /* Màu chữ */
             padding: 10px 20px;
-            font-size: 30px;
+            font-size: 35px;
             cursor: pointer;
             outline: none;
             transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi mềm mại */
             top: 50%;
-            left: 45%;
+            left: 42%;
             font-family: 'Comfortaa', cursive;
+
+            width: 200px;
+            height: 80px;
         }
 
         #start-btn:hover {
@@ -205,6 +208,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 okButton.style.display = "block";
                 audio.play();
                 icon.setAttribute("name", "pause");
+            });
+            startButton.addEventListener("mouseover", function() {
+                startButton.textContent = "dạaaa";
+            });
+
+            startButton.addEventListener("mouseout", function() {
+                startButton.textContent = "Cậu ơiii";
             });
         const images = [
                 { src: "./dau.jpg", question: "Cậu có nhớ tớ honggg" },
